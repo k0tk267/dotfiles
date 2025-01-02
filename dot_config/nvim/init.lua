@@ -32,4 +32,4 @@ vim.opt.listchars:append("space:·") -- スペースをドットで表示
 vim.opt.listchars:append("tab:→ ")  -- タブを矢印で表示
 
 require "lazy_setup"
-re:CocInstall coc-pyrightquire "polish"
+require "polish"
