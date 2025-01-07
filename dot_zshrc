@@ -1,0 +1,43 @@
+#Java
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+
+# starship 
+eval "$(starship init zsh)"
+
+# z
+. `brew --prefix`/etc/profile.d/z.sh
+
+# rosetta
+alias x86="env /usr/bin/arch -x86_64 /bin/zsh --login"
+alias arm="env /usr/bin/arch -arm64 /bin/zsh --login"
+
+
+. "$HOME/.cargo/env"
+
+# tmux
+## start
+if [[ ! -n $TMUX ]]; then
+  # get the IDs
+  ID="`tmux list-sessions`"
+  if [[ -z "$ID" ]]; then
+    tmux new-session
+  fi
+  create_new_session="Create New Session"
+  ID="$ID\n${create_new_session}:"
+  ID="`echo $ID | $PERCOL | cut -d: -f1`"
+  if [[ "$ID" = "${create_new_session}" ]]; then
+    tmux new-session
+  elif [[ -n "$ID" ]]; then
+    tmux attach-session -t "$ID"
+  else
+    :  # Start terminal normally
+  fi
+fi
+
+# nvm (node version management)
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# alias
+alias lgit="lazygit"
